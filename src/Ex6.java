@@ -10,6 +10,7 @@ public class Ex6 {
         Queue<Event> eventsQueue = new LinkedList<>();
         List<Integer> seconds = new ArrayList<>();
         int sumSecond = 0;
+        int peopleTake;
         Event person;
         Event events[] = {
                 new Event(new Time(7, 30, 0), 'p', 10),
@@ -22,35 +23,27 @@ public class Ex6 {
         };
 
         for (Event event : events) {
-            // System.out.println(event.geString());
+            int peopleCounter = 0;
+
             if (event.getCode() == 'p') {
                 for (int i = 0; i < event.getNumOfPeople(); i++) {
                     eventsQueue.add(event);
-
                 }
                 System.out.println("Time " + event.getTime().geString() + " " +
                         event.getNumOfPeople()
-                        + " people arrive. " + eventsQueue.size() + " people are new on the line.");
+                        + " people arrive. " + eventsQueue.size() + " people are now on the line.");
 
             } else if (event.getCode() == 'b') {
-                if (event.getNumOfPeople() > eventsQueue.size()) {
-                    int size = eventsQueue.size();
-                    for (int i = 0; i < size; i++) {
-                        person = eventsQueue.poll();
-                        seconds.add(event.getTime().getTimeDiffInSecond(person.getTime()));
-                    }
-                    System.out.println("Time " + event.getTime().geString() + ". " + size
-                            + " people get on the bus, 0 people now remain.");
-                } else {
-                    for (int i = 0; i < event.getNumOfPeople(); i++) {
-                        person = eventsQueue.poll();
-                        seconds.add(event.getTime().getTimeDiffInSecond(person.getTime()));
-                    }
-                    System.out.println("Time " + event.getTime().geString() + ". " + event.getNumOfPeople()
-                            + " people get on the bus, " + eventsQueue.size() + " people now remain.\n");
+                peopleTake = event.getNumOfPeople();
+                while (!eventsQueue.isEmpty() && peopleTake > 0) {
+                    person = eventsQueue.poll();
+                    seconds.add(event.getTime().getTimeDiffInSecond(person.getTime()));
+                    peopleTake--;
+                    peopleCounter++;
                 }
+                System.out.println("Time " + event.getTime().geString() + ". " + peopleCounter
+                        + " people get on the bus, " + eventsQueue.size() + " people now remain.\n");
             }
-
         }
 
         for (int second : seconds) {
