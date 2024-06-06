@@ -10,6 +10,7 @@ public class Ex6 {
         Queue<Event> eventsQueue = new LinkedList<>();
         List<Integer> seconds = new ArrayList<>();
         int sumSecond = 0;
+        Event person;
         Event events[] = {
                 new Event(new Time(7, 30, 0), 'p', 10),
                 new Event(new Time(8, 5, 30), 'p', 15),
@@ -35,18 +36,18 @@ public class Ex6 {
                 if (event.getNumOfPeople() > eventsQueue.size()) {
                     int size = eventsQueue.size();
                     for (int i = 0; i < size; i++) {
-                        Event person = eventsQueue.poll();
+                        person = eventsQueue.poll();
                         seconds.add(event.getTime().getTimeDiffInSecond(person.getTime()));
                     }
                     System.out.println("Time " + event.getTime().geString() + ". " + size
                             + " people get on the bus, 0 people now remain.");
                 } else {
                     for (int i = 0; i < event.getNumOfPeople(); i++) {
-                        Event person = eventsQueue.poll();
+                        person = eventsQueue.poll();
                         seconds.add(event.getTime().getTimeDiffInSecond(person.getTime()));
                     }
                     System.out.println("Time " + event.getTime().geString() + ". " + event.getNumOfPeople()
-                            + " people get on the bus, " + eventsQueue.size() + " people now remain.");
+                            + " people get on the bus, " + eventsQueue.size() + " people now remain.\n");
                 }
             }
 
